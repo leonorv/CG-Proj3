@@ -38,8 +38,8 @@ var keys = {
     53: false //5 (ortho)
 }
 
-function createPodium() {
-    podium = new Podium();
+function createPlattform(floor, podium) {
+    plattform = new Plattform(floor, podium);
 }
 
 function createCybertruck() {
@@ -59,7 +59,7 @@ function createScene() {
     scene.background = new THREE.Color(0xC5D0D2);
     scene.add(new THREE.AxisHelper(10));
 
-    createPodium();
+    createPlattform(new Floor(0,0,0,50,50), new Podium(0,0,0,20,3));
     createCybertruck();
 }
 
