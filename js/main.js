@@ -18,6 +18,8 @@ var clock, delta;
 var cameraOrtho, cameraPerspective;
 var podium, cybertruck, platform;
 
+var spotlight1;
+
 var smallAngle = 0.01;
 
 
@@ -48,24 +50,37 @@ function createCybertruck() {
 }
 
 function createSpotlights() {
+    spotlight1 = new Spotlight(-15, 20, -15, new Lamp(3, 6), Math.PI/4, -Math.PI/4);
+    spotlight2 = new Spotlight(15, 20, -15, new Lamp(3, 6), -Math.PI/4, -Math.PI/4);
+    spotlight3 = new Spotlight(0, 20, 15, new Lamp(3, 6), 0, Math.PI/4);
 
+    spotlights.push(spotlight1);
+    spotlights.push(spotlight2);
+    spotlights.push(spotlight3);
 }
 
+changeCalculationsStatus() {
+
+}
 
 function createScene() {
     'use strict';
 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xC5D0D2);
+    scene.background = new THREE.Color(0x000000);
     scene.add(new THREE.AxisHelper(10));
 
-    createPlatform(new Floor(0,0,0,50,50), new Podium(0,0,0,20,3));
+    global_light = new THREE.DirectionalLight(0xffffff, 0.5 );
+    scene.add(global_light);
+
+    createPlatform(new Floor(0,0,0,40,40), new Podium(0,0,0,15,3));
     createCybertruck();
+    createSpotlights();
 }
 
 function createCamera() {
     'use strict';
-    cameraOrtho = new THREE.OrthographicCamera( 0.5 * frustumSize * aspect / - 2, 0.5 * frustumSize * aspect / 2, 0.5* frustumSize / 2, 0.5 * frustumSize / - 2, 2, 2000 );
+    cameraOrtho = new THREE.OrthographicCamera( 0.5 * frustumSize * aspect / - 2, 0.5 * frustumSize * aspect / 2, 0.5 * frustumSize / 2, 0.5 * frustumSize / - 2, 2, 2000);
     cameraPerspective = new THREE.PerspectiveCamera(fov, aspect, near, far);
     /*ORTHO POSITION*/
     cameraOrtho.position.set(0,frustumSize,0);
@@ -101,15 +116,18 @@ function onKeyDown(e) {
 
     switch(e.keyCode) {
         case 81:
-            global_light.changeStatus();
+            if (global_light.intensity == 0)
+                global_light.intensity = 0.5;
+            else
+                global_light.intensity = 0;
             onResize();
             break;
         case 87:
-            global_light.changeCalculationsStatus();
+            changeCalculationsStatus();
             onResize();
             break;
         case 69:
-            global_light.changeShadingType();
+            changeShadingType();
             onResize();
             break;
         case 49: 
