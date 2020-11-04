@@ -19,16 +19,24 @@ class Podium extends THREE.Object3D {
         super();
         this.radius = radius;
         this.height = height;
-        this.material = new THREE.MeshBasicMaterial({color: 0x89ecda});
+        this.material = new THREE.MeshBasicMaterial({color: 0x89ecda, wireframe: true});
         this.geometry = new THREE.CylinderGeometry(this.radius, this.radius, this.height, 30);
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.add(this.mesh);
         this.position.set(x, y+height/2, z);
         scene.add(this);
     }
+
+    spinLeft(smallAngle) {
+        this.rotateY(-smallAngle);
+    }
+
+    spinRight(smallAngle) {
+        this.rotateY(smallAngle);
+    }
 }
 
-class Plattform extends THREE.Object3D {
+class Platform extends THREE.Object3D {
     constructor(floor, podium) {
         'use strict'
         super();

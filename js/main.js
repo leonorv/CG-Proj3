@@ -16,9 +16,9 @@ var spotlights = new Array();
 var camera, scene, renderer;
 var clock, delta;
 var cameraOrtho, cameraPerspective;
-var podium, cybertruck;
+var podium, cybertruck, platform;
 
-var smallAngle = 0.1;
+var smallAngle = 0.01;
 
 
 var keys = {
@@ -38,8 +38,8 @@ var keys = {
     53: false //5 (ortho)
 }
 
-function createPlattform(floor, podium) {
-    plattform = new Plattform(floor, podium);
+function createPlatform(floor, podium) {
+    platform = new Platform(floor, podium);
 }
 
 function createCybertruck() {
@@ -59,7 +59,7 @@ function createScene() {
     scene.background = new THREE.Color(0xC5D0D2);
     scene.add(new THREE.AxisHelper(10));
 
-    createPlattform(new Floor(0,0,0,50,50), new Podium(0,0,0,20,3));
+    createPlatform(new Floor(0,0,0,50,50), new Podium(0,0,0,20,3));
     createCybertruck();
 }
 
@@ -149,10 +149,10 @@ function render() {
 
 function keyPressed() {
     if(keys[37]) { //left
-        podium.spinLeft(smallAngle);
+        platform.podium.spinLeft(smallAngle);
     }
     if(keys[39]) { //right
-        podium.spinRight(smallAngle);
+        platform.podium.spinRight(smallAngle);
     }
 }
 
