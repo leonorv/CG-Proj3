@@ -44,6 +44,7 @@ function createPlatform(floor, podium) {
 
 function createCybertruck() {
     cybertruck = new Cybertruck(0, platform.podium.height, 0);
+    platform.podium.add(cybertruck);
 }
 
 function createSpotlights() {

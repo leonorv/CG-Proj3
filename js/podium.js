@@ -19,7 +19,7 @@ class Podium extends THREE.Object3D {
         super();
         this.radius = radius;
         this.height = height;
-        this.material = new THREE.MeshPhongMaterial({color: 0x560000, wireframe: false});
+        this.material = new THREE.MeshPhongMaterial({color: 0x560000, wireframe: true});
         this.geometry = new THREE.CylinderGeometry(this.radius, this.radius, this.height, 30);
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.add(this.mesh);
