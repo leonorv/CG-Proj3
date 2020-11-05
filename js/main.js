@@ -18,8 +18,6 @@ var clock, delta;
 var cameraOrtho, cameraPerspective;
 var podium, cybertruck, platform;
 
-var spotlight1;
-
 var smallAngle = 0.01;
 
 
@@ -45,21 +43,20 @@ function createPlatform(floor, podium) {
 }
 
 function createCybertruck() {
-    cybertruck = new Cybertruck();
-
+    cybertruck = new Cybertruck(0, platform.podium.height, 0);
 }
 
 function createSpotlights() {
-    spotlight1 = new Spotlight(-15, 20, -15, new Lamp(3, 6), Math.PI/4, -Math.PI/4);
-    spotlight2 = new Spotlight(15, 20, -15, new Lamp(3, 6), -Math.PI/4, -Math.PI/4);
-    spotlight3 = new Spotlight(0, 20, 15, new Lamp(3, 6), 0, Math.PI/4);
+    var spotlight1 = new Spotlight(-15, 20, -15, new Lamp(3, 6), Math.PI/4, -Math.PI/4);
+    var spotlight2 = new Spotlight(15, 20, -15, new Lamp(3, 6), -Math.PI/4, -Math.PI/4);
+    var spotlight3 = new Spotlight(0, 20, 15, new Lamp(3, 6), 0, Math.PI/4);
 
     spotlights.push(spotlight1);
     spotlights.push(spotlight2);
     spotlights.push(spotlight3);
 }
 
-changeCalculationsStatus() {
+function changeCalculationsStatus() {
 
 }
 
@@ -68,7 +65,7 @@ function createScene() {
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000000);
-    scene.add(new THREE.AxisHelper(10));
+    //scene.add(new THREE.AxisHelper(10));
 
     global_light = new THREE.DirectionalLight(0xffffff, 0.5 );
     scene.add(global_light);
@@ -102,11 +99,13 @@ function onResize() {
     aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
 
     renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
-
-    camera.left = - 0.5 * frustumSize * aspect / 2;
-    camera.right = 0.5 * frustumSize * aspect / 2;
-    camera.top = 0.5 * frustumSize / 2;
-    camera.bottom = - 0.5 *  frustumSize / 2;
+    if (camera == cameraOrtho) {
+        camera.left = - 0.5 * frustumSize * aspect / 2;
+        camera.right = 0.5 * frustumSize * aspect / 2;
+        camera.top = 0.5 * frustumSize / 2;
+        camera.bottom = - 0.5 *  frustumSize / 2;
+    }
+    else camera.aspect = aspect;
     camera.updateProjectionMatrix();
 }
 
