@@ -43,14 +43,14 @@ function createPlatform(floor, podium) {
 }
 
 function createCybertruck() {
-    cybertruck = new Cybertruck(0, platform.podium.height, 0);
+    cybertruck = new Cybertruck(0, platform.podium.height+0.6, 0);
     platform.podium.add(cybertruck);
 }
 
 function createSpotlights() {
-    var spotlight1 = new Spotlight(-15, 20, -15, new Lamp(3, 6), Math.PI/4, -Math.PI/4);
-    var spotlight2 = new Spotlight(15, 20, -15, new Lamp(3, 6), -Math.PI/4, -Math.PI/4);
-    var spotlight3 = new Spotlight(0, 20, 15, new Lamp(3, 6), 0, Math.PI/4);
+    var spotlight1 = new Spotlight(-15, 20, -15, new Lamp(1.5, 3), Math.PI/4, -Math.PI/4);
+    var spotlight2 = new Spotlight(15, 20, -15, new Lamp(1.5, 3), -Math.PI/4, -Math.PI/4);
+    var spotlight3 = new Spotlight(0, 20, 15, new Lamp(1.5, 3), 0, Math.PI/4);
 
     spotlights.push(spotlight1);
     spotlights.push(spotlight2);
@@ -66,9 +66,9 @@ function createScene() {
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000000);
-    //scene.add(new THREE.AxisHelper(10));
+    scene.add(new THREE.AxisHelper(10));
 
-    global_light = new THREE.DirectionalLight(0xffffff, 0.5 );
+    global_light = new THREE.DirectionalLight(0xffffff, 0.5);
     scene.add(global_light);
 
     createPlatform(new Floor(0,0,0,40,40), new Podium(0,0,0,15,3));
