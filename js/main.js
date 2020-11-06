@@ -48,9 +48,9 @@ function createCybertruck() {
 }
 
 function createSpotlights() {
-    var spotlight1 = new Spotlight(-15, 20, -15, new Lamp(1.5, 3), Math.PI/4, -Math.PI/4);
-    var spotlight2 = new Spotlight(15, 20, -15, new Lamp(1.5, 3), -Math.PI/4, -Math.PI/4);
-    var spotlight3 = new Spotlight(0, 20, 15, new Lamp(1.5, 3), 0, Math.PI/4);
+    var spotlight1 = new Spotlight(-10, 20, -10, new Lamp(1.5, 3), Math.PI/6, -Math.PI/6, 10, 0, 0);
+    var spotlight2 = new Spotlight(10, 20, -10, new Lamp(1.5, 3), -Math.PI/6, -Math.PI/6, 0, 0, 0);
+    var spotlight3 = new Spotlight(0, 20, 10, new Lamp(1.5, 3), 0, Math.PI/6, 0, 0, 10);
 
     spotlights.push(spotlight1);
     spotlights.push(spotlight2);
@@ -162,7 +162,11 @@ function render() {
     'use strict';
     delta = clock.getDelta();
     keyPressed(delta);
+    //renderer.shadowMap.enabled = true;
+    //renderer.shadowMap.type = THREE.PCFShadowMap;
     renderer.render(scene, camera);
+
+
 }
 
 function keyPressed() {

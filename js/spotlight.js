@@ -9,8 +9,6 @@ class Lamp extends THREE.Group {
         this.coneMesh = new THREE.Mesh(this.cone, this.material);
         this.sphereMesh = new THREE.Mesh(this.sphere, this.material);
         this.coneMesh.position.set(0,0,0);
-        //this.sphereMesh.position.set(0,0,0);
-        //this.sphereMesh.position.set(height/4,-height/4,height/4);
         this.coneMesh.add(this.sphereMesh);
         this.add(this.coneMesh);
         this.sphereMesh.position.y -= height/2;
@@ -19,11 +17,13 @@ class Lamp extends THREE.Group {
 }
 
 class Spotlight extends THREE.SpotLight {
-    constructor(x,y,z,solid, angleX, angleZ) {
+    constructor(x,y,z, solid, angleX, angleZ, targetX, targetY, targetZ) {
         'use strict'
-        super(0xffffff, 0.5);
+        super(0xffffff, 0.5, 0, Math.PI/6, 1);
         this.position.set(x,y,z);
         this.add(solid);
+        this.target = new THREE.Object3D();
+        this.target.position.set(targetX, targetY, targetZ);
 
         solid.coneMesh.rotateZ(angleX);
         solid.coneMesh.rotateX(angleZ);
