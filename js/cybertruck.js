@@ -2,7 +2,7 @@ class Cybertruck extends THREE.Object3D {
     constructor(x, y, z) {
         'use strict'
         super();
-        this.material = new THREE.MeshBasicMaterial({color: 0xffffff, side: THREE.DoubleSide});
+        this.material = new THREE.MeshLambertMaterial({color: 0xffff00, side: THREE.DoubleSide});
         this.geometry = new CybertruckGeometry();
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.add(this.mesh);
@@ -30,6 +30,8 @@ class CybertruckGeometry extends THREE.Geometry {
         //this.n_faces = 40; //idk
         this.createVertices();
         this.createFaces();
+        this.computeFaceNormals();
+        //this.computeVertexNormals();
     }
 
     createVertices() {
@@ -73,9 +75,11 @@ class CybertruckGeometry extends THREE.Geometry {
         this.vertices.push(new THREE.Vector3(-2, 6.5, 3)); //30
         this.vertices.push(new THREE.Vector3(-2, 6.5, -3)); //31
 
-
-
-
+        //vidro
+        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58), 3-3/Math.sqrt(58) + 3, 2.5)); //32
+        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58), 3-3/Math.sqrt(58) + 3, -2.5)); //33
+        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58)-(7-14/Math.sqrt(58)), 3-3/Math.sqrt(58)-(3-6/Math.sqrt(58)) + 3, 2.5)); //34
+        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58)-(7-14/Math.sqrt(58)), 3-3/Math.sqrt(58)-(3-6/Math.sqrt(58)) + 3, -2.5)); //35
     }
 
     createFaces() {
@@ -125,6 +129,8 @@ class CybertruckGeometry extends THREE.Geometry {
         /*this.faces.push(new THREE.Face3(28, 27, 20));
         this.faces.push(new THREE.Face3(23, 24, 27));
         this.faces.push(new THREE.Face3(27, 28, 24));*/
+        this.faces.push(new THREE.Face3(32, 33, 34));
+        this.faces.push(new THREE.Face3(34, 35, 33));
 
 
 
