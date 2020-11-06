@@ -59,7 +59,19 @@ class CybertruckGeometry extends THREE.Geometry {
         this.vertices.push(new THREE.Vector3(-8, 0.5, 4)); //20
         this.vertices.push(new THREE.Vector3(-8, 0.5, -4)); //21
 
+        //farol direito
+        this.vertices.push(new THREE.Vector3(-8.2, 1.5, 4)); //22
+        this.vertices.push(new THREE.Vector3(-9, 1.5, 2)); //23
+        this.vertices.push(new THREE.Vector3(-9, 3, 2)); //24
+        this.vertices.push(new THREE.Vector3(-8.2, 3, 4)); //25
+        //farol esquerdo
+        this.vertices.push(new THREE.Vector3(-8.2, 1.5, -4)); //26
+        this.vertices.push(new THREE.Vector3(-9, 1.5, -2)); //27
+        this.vertices.push(new THREE.Vector3(-9, 3, -2)); //28
+        this.vertices.push(new THREE.Vector3(-8.2, 3, -4)); //29
 
+        this.vertices.push(new THREE.Vector3(-2, 6.5, 3)); //30
+        this.vertices.push(new THREE.Vector3(-2, 6.5, -3)); //31
 
 
 
@@ -92,6 +104,27 @@ class CybertruckGeometry extends THREE.Geometry {
         this.faces.push(new THREE.Face3(18, 19, 20));
         this.faces.push(new THREE.Face3(20, 21, 19));
 
+        
+        this.faces.push(new THREE.Face3(20, 22, 23));
+        //farol direito
+        this.faces.push(new THREE.Face3(22, 23, 24));
+        this.faces.push(new THREE.Face3(22, 24, 25));
+        
+        this.faces.push(new THREE.Face3(21, 26, 27));
+        //farol esquerdo
+        this.faces.push(new THREE.Face3(26, 27, 28));
+        this.faces.push(new THREE.Face3(26, 28, 29));
+
+        this.faces.push(new THREE.Face3(20, 23, 27));
+        this.faces.push(new THREE.Face3(21, 27, 20));
+        this.faces.push(new THREE.Face3(23, 24, 27));
+        this.faces.push(new THREE.Face3(27, 28, 24));
+
+        //tejadilho
+        this.faces.push(new THREE.Face3(24, 25, 30));
+        /*this.faces.push(new THREE.Face3(28, 27, 20));
+        this.faces.push(new THREE.Face3(23, 24, 27));
+        this.faces.push(new THREE.Face3(27, 28, 24));*/
 
 
 
