@@ -85,7 +85,7 @@ function createCamera() {
     cameraOrtho.lookAt(scene.position);
     scene.add(cameraOrtho);
     /*PERSPECTIVE POSITION*/
-    cameraPerspective.position.set(50, 50, 50);
+    cameraPerspective.position.set(35, 35, 35);
     cameraPerspective.lookAt(scene.position);
     scene.add(cameraPerspective);
 
