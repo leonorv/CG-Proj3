@@ -99,7 +99,7 @@ function onResize() {
 	SCREEN_HEIGHT = window.innerHeight;
     aspect = SCREEN_WIDTH / SCREEN_HEIGHT;
 
-    renderer.setSize( SCREEN_WIDTH, SCREEN_HEIGHT );
+    renderer.setSize(SCREEN_WIDTH, SCREEN_HEIGHT );
     if (camera == cameraOrtho) {
         camera.left = - 0.5 * frustumSize * aspect / 2;
         camera.right = 0.5 * frustumSize * aspect / 2;

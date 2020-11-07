@@ -76,10 +76,11 @@ class CybertruckGeometry extends THREE.Geometry {
         this.vertices.push(new THREE.Vector3(-2, 6.5, -3)); //31
 
         //vidro
-        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58), 3-3/Math.sqrt(58) + 3, 2.5)); //32
-        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58), 3-3/Math.sqrt(58) + 3, -2.5)); //33
-        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58)-(7-14/Math.sqrt(58)), 3-3/Math.sqrt(58)-(3-6/Math.sqrt(58)) + 3, 2.5)); //34
-        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58)-(7-14/Math.sqrt(58)), 3-3/Math.sqrt(58)-(3-6/Math.sqrt(58)) + 3, -2.5)); //35
+        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58), 3-3/Math.sqrt(58) + 3.5, -2.5)); //32
+        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58), 3-3/Math.sqrt(58) + 3.5, 2.5)); //33
+        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58)-(7-21/Math.sqrt(58)), 3-3/Math.sqrt(58)-(3-9/Math.sqrt(58)) + 3.5, -2.5)); //34
+        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58)-(7-21/Math.sqrt(58)), 3-3/Math.sqrt(58)-(3-9/Math.sqrt(58)) + 3.5, 2.5)); //35
+       
     }
 
     createFaces() {
@@ -125,12 +126,19 @@ class CybertruckGeometry extends THREE.Geometry {
         this.faces.push(new THREE.Face3(27, 28, 24));
 
         //tejadilho
-        this.faces.push(new THREE.Face3(24, 25, 30));
-        /*this.faces.push(new THREE.Face3(28, 27, 20));
-        this.faces.push(new THREE.Face3(23, 24, 27));
-        this.faces.push(new THREE.Face3(27, 28, 24));*/
         this.faces.push(new THREE.Face3(32, 33, 34));
         this.faces.push(new THREE.Face3(34, 35, 33));
+        this.faces.push(new THREE.Face3(24, 25, 35));
+        this.faces.push(new THREE.Face3(24, 28, 35));
+        this.faces.push(new THREE.Face3(28, 34, 35));
+        this.faces.push(new THREE.Face3(28, 29, 34));
+        this.faces.push(new THREE.Face3(30, 35, 25));
+        this.faces.push(new THREE.Face3(30, 33, 35));
+        this.faces.push(new THREE.Face3(31, 32, 34));
+        this.faces.push(new THREE.Face3(29, 31, 34));
+        this.faces.push(new THREE.Face3(30, 31, 32));
+        this.faces.push(new THREE.Face3(30, 32, 33));
+       
 
 
 
