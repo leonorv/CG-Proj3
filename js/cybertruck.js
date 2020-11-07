@@ -72,15 +72,19 @@ class CybertruckGeometry extends THREE.Geometry {
         this.vertices.push(new THREE.Vector3(-9, 3, -2)); //28
         this.vertices.push(new THREE.Vector3(-8.2, 3, -4)); //29
 
-        this.vertices.push(new THREE.Vector3(-2, 6.5, 3)); //30
-        this.vertices.push(new THREE.Vector3(-2, 6.5, -3)); //31
+        //vidro da frente
+        this.vertices.push(new THREE.Vector3(-7, 4.3, 2.8)); //30
+        this.vertices.push(new THREE.Vector3(-7, 4.3, -2.8)); //31
+        this.vertices.push(new THREE.Vector3(-2, 6.5, 3)); //32
+        this.vertices.push(new THREE.Vector3(-2, 6.5, -3)); //33
 
-        //vidro
-        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58), 3-3/Math.sqrt(58) + 3.5, -2.5)); //32
-        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58), 3-3/Math.sqrt(58) + 3.5, 2.5)); //33
-        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58)-(7-21/Math.sqrt(58)), 3-3/Math.sqrt(58)-(3-9/Math.sqrt(58)) + 3.5, -2.5)); //34
-        this.vertices.push(new THREE.Vector3(-2-7/Math.sqrt(58)-(7-21/Math.sqrt(58)), 3-3/Math.sqrt(58)-(3-9/Math.sqrt(58)) + 3.5, 2.5)); //35
-       
+        //vidro lateral direito
+        this.vertices.push(new THREE.Vector3(-6.13, 4.17, 3.67)); //34
+        this.vertices.push(new THREE.Vector3(4.02, 5.19, 3.52)); //35
+        this.vertices.push(new THREE.Vector3(4.02, 4.17, 3.85)); //36
+
+
+
     }
 
     createFaces() {
@@ -126,20 +130,53 @@ class CybertruckGeometry extends THREE.Geometry {
         this.faces.push(new THREE.Face3(27, 28, 24));
 
         //tejadilho
-        this.faces.push(new THREE.Face3(32, 33, 34));
-        this.faces.push(new THREE.Face3(34, 35, 33));
-        this.faces.push(new THREE.Face3(24, 25, 35));
-        this.faces.push(new THREE.Face3(24, 28, 35));
-        this.faces.push(new THREE.Face3(28, 34, 35));
-        this.faces.push(new THREE.Face3(28, 29, 34));
-        this.faces.push(new THREE.Face3(30, 35, 25));
-        this.faces.push(new THREE.Face3(30, 33, 35));
-        this.faces.push(new THREE.Face3(31, 32, 34));
-        this.faces.push(new THREE.Face3(29, 31, 34));
-        this.faces.push(new THREE.Face3(30, 31, 32));
-        this.faces.push(new THREE.Face3(30, 32, 33));
-       
+        this.faces.push(new THREE.Face3(24, 25, 30));
+        this.faces.push(new THREE.Face3(24, 28, 30));
+        this.faces.push(new THREE.Face3(28, 31, 30));
+        this.faces.push(new THREE.Face3(28, 29, 31));
+        this.faces.push(new THREE.Face3(24, 25, 30));
 
+            //vidro
+            this.faces.push(new THREE.Face3(31, 32, 33));
+            this.faces.push(new THREE.Face3(30, 31, 32));
+        
+        this.faces.push(new THREE.Face3(25, 30, 32));
+        this.faces.push(new THREE.Face3(29, 31, 33));
+    
+        this.faces.push(new THREE.Face3(32, 33, 0));
+        this.faces.push(new THREE.Face3(33, 0, 1));
+
+        //lateral direita
+        this.faces.push(new THREE.Face3(0, 2, 6));
+        this.faces.push(new THREE.Face3(2, 4, 6));
+        this.faces.push(new THREE.Face3(8, 10, 14));
+        this.faces.push(new THREE.Face3(14, 10, 12));
+        this.faces.push(new THREE.Face3(16, 18, 20));
+        this.faces.push(new THREE.Face3(16, 20, 22));
+        this.faces.push(new THREE.Face3(16, 22, 25));
+
+            //vidro
+            this.faces.push(new THREE.Face3(32, 34, 35));
+            this.faces.push(new THREE.Face3(34, 35, 36));
+        
+        this.faces.push(new THREE.Face3(0, 35, 36));
+        this.faces.push(new THREE.Face3(0, 6, 36));
+        this.faces.push(new THREE.Face3(6, 8, 36));
+        this.faces.push(new THREE.Face3(8, 14, 36));
+        this.faces.push(new THREE.Face3(14, 34, 36));
+        this.faces.push(new THREE.Face3(14, 16, 34));
+        this.faces.push(new THREE.Face3(16, 25, 34));
+
+
+
+
+
+
+
+        
+
+
+        
 
 
 
