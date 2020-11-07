@@ -2,7 +2,7 @@ class Cybertruck extends THREE.Object3D {
     constructor(x, y, z) {
         'use strict'
         super();
-        this.material = new THREE.MeshLambertMaterial({color: 0xffff00, side: THREE.DoubleSide});
+        this.material = new THREE.MeshPhongMaterial({color: 0xB9C1C7, side: THREE.DoubleSide});
         this.geometry = new CybertruckGeometry();
         this.mesh = new THREE.Mesh(this.geometry, this.material);
         this.add(this.mesh);

@@ -20,6 +20,9 @@ var podium, cybertruck, platform;
 
 var smallAngle = 0.01;
 
+var primary_colors = [0xff0000, 0xffff00, 0x0033cc];
+var cyberpunk_colors = [0xD70270, 0x734F96, 0x0038A8];
+
 
 var keys = {
     //PODIUM
@@ -48,9 +51,9 @@ function createCybertruck() {
 }
 
 function createSpotlights() {
-    var spotlight1 = new Spotlight(-10, 20, -10, new Lamp(1.5, 3), Math.PI/6, -Math.PI/6, 10, 0, 0);
-    var spotlight2 = new Spotlight(10, 20, -10, new Lamp(1.5, 3), -Math.PI/6, -Math.PI/6, 0, 0, 0);
-    var spotlight3 = new Spotlight(0, 20, 10, new Lamp(1.5, 3), 0, Math.PI/6, 0, 0, 10);
+    var spotlight1 = new Spotlight(-10, 20, -10, new Lamp(1.5, 3), Math.PI/6, -Math.PI/6, 10, 0, 0, primary_colors[0]);
+    var spotlight2 = new Spotlight(10, 20, -10, new Lamp(1.5, 3), -Math.PI/6, -Math.PI/6, 0, 0, 0, primary_colors[1]);
+    var spotlight3 = new Spotlight(0, 20, 10, new Lamp(1.5, 3), 0, Math.PI/6, 0, 0, 10, primary_colors[2]);
 
     spotlights.push(spotlight1);
     spotlights.push(spotlight2);

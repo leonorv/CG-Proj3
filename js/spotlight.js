@@ -17,9 +17,9 @@ class Lamp extends THREE.Group {
 }
 
 class Spotlight extends THREE.SpotLight {
-    constructor(x,y,z, solid, angleX, angleZ, targetX, targetY, targetZ) {
+    constructor(x,y,z, solid, angleX, angleZ, targetX, targetY, targetZ, color) {
         'use strict'
-        super(0xffffff, 0.5, 0, Math.PI/6, 1);
+        super(color, 0.5, 0, Math.PI/8, 0);
         this.position.set(x,y,z);
         this.add(solid);
         this.target = new THREE.Object3D();
