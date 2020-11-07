@@ -79,9 +79,9 @@ class CybertruckGeometry extends THREE.Geometry {
         this.vertices.push(new THREE.Vector3(-2, 6.5, -3)); //33
 
         //vidro lateral direito
-        this.vertices.push(new THREE.Vector3(-6.13, 4.17, 3.67)); //34
-        this.vertices.push(new THREE.Vector3(4.02, 5.19, 3.52)); //35
-        this.vertices.push(new THREE.Vector3(4.02, 4.17, 3.85)); //36
+        this.vertices.push(new THREE.Vector3(-6.43, 4, 3.71)); //34
+        this.vertices.push(new THREE.Vector3(4.92, 5, 3.6)); //35
+        this.vertices.push(new THREE.Vector3(4.92, 4, 3.92)); //36
 
 
 
