@@ -2,10 +2,19 @@ class Cybertruck extends THREE.Object3D {
     constructor(x, y, z) {
         'use strict'
         super();
-        this.material = new THREE.MeshPhongMaterial({color: 0xB9C1C7, side: THREE.DoubleSide});
         this.geometry = new CybertruckGeometry();
-        this.mesh = new THREE.Mesh(this.geometry, this.material);
-        this.add(this.mesh);
+        this.mainMaterialPhong = new THREE.MeshPhongMaterial({color: 0xB9C1C7, side: THREE.DoubleSide});
+        this.mainMaterialLambert = new THREE.MeshLambertMaterial({color: 0xdadaff, side: THREE.DoubleSide});
+        this.mainMaterialBasic = new THREE.MeshBasicMaterial({color: 0xdadaff, side: THREE.DoubleSide});
+        this.mainMaterial = this.mainMaterialLambert;
+        this.mainMesh = new THREE.Mesh(this.geometry, this.mainMaterial);
+        this.headlightsMesh = new THREE.Mesh(this.geometry.headlights, this.mainMaterial);
+        this.frontGlassMesh = new THREE.Mesh(this.geometry.frontGlass, this.mainMaterial);
+        this.sideGlassMesh = new THREE.Mesh(this.geometry.sideGlass, this.mainMaterial);
+        this.add(this.mainMesh);
+        this.add(this.headlightsMesh);
+        this.add(this.frontGlassMesh);
+        this.add(this.sideGlassMesh);
         this.position.set(x, y, z);
         this.chassis = new Chassis();
         this.wheel_topLeft = new Wheel(0, this.chassis.topWire.height/2, 0);
@@ -21,6 +30,84 @@ class Cybertruck extends THREE.Object3D {
         this.add(this.chassis);
         scene.add(this);
     }
+
+    changeShadingType() {
+        if (this.mainMesh.material == this.mainMaterialLambert) {
+            this.mainMesh.material = this.mainMaterialPhong;
+        }
+        else {
+            this.mainMesh.material = this.mainMaterialLambert;
+        }
+    }
+
+    changeLightingCalculations() {
+        if (this.mainMesh.material == this.mainMaterialLambert || this.mainMesh.material == this.mainMaterialPhong) {
+            this.mainMesh.material = this.mainMaterialBasic;
+        }
+        else {
+            this.mainMesh.material = this.mainMaterialLambert;
+        }
+    }
+}
+
+class headlightsGeometry extends THREE.Geometry {
+    constructor(vertices) {
+        'use strict'
+        super();
+        this.vertices = vertices;
+        this.createFaces();
+        this.computeFaceNormals();
+        //this.computeVertexNormals();
+    }
+
+    createFaces() {
+       //farois
+       for(var i = 0;i < 2;i++){
+        this.faces.push(new THREE.Face3(20+i, 22+4*i, 23+4*i));
+        
+        this.faces.push(new THREE.Face3(22+4*i, 23+4*i, 24+4*i));
+        this.faces.push(new THREE.Face3(22+4*i, 24+4*i, 25+4*i));
+        }
+        this.faces.push(new THREE.Face3(23, 24, 27));
+        this.faces.push(new THREE.Face3(27, 28, 24));
+    }
+    
+}
+
+class frontGlassGeometry extends THREE.Geometry {
+    constructor(vertices) {
+        'use strict'
+        super();
+        this.vertices =  vertices;
+        this.createFaces();
+        this.computeFaceNormals();
+        //this.computeVertexNormals();
+    }
+
+    createFaces() {
+        //vidro
+        this.faces.push(new THREE.Face3(31, 32, 33));
+        this.faces.push(new THREE.Face3(30, 31, 32));
+    }
+}
+
+class sideGlassGeometry extends THREE.Geometry {
+    constructor(vertices) {
+        'use strict'
+        super();
+        this.vertices = vertices;
+        this.createFaces();
+        this.computeFaceNormals();
+        //this.computeVertexNormals();
+    }
+
+    createFaces() {
+        for(var i = 0;i < 2;i++){
+            //vidro
+            this.faces.push(new THREE.Face3(32+i, 34+3*i, 35+3*i));
+            this.faces.push(new THREE.Face3(34+3*i, 35+3*i, 36+3*i));
+        }
+    }
 }
 
 class CybertruckGeometry extends THREE.Geometry {
@@ -28,7 +115,11 @@ class CybertruckGeometry extends THREE.Geometry {
         super();
         //this.n_vertices = 30;
         //this.n_faces = 40; //idk
+        //this.createFaces();
         this.createVertices();
+        this.headlights = new headlightsGeometry(this.vertices);
+        this.frontGlass = new frontGlassGeometry(this.vertices);
+        this.sideGlass = new sideGlassGeometry(this.vertices);
         this.createFaces();
         this.computeFaceNormals();
         //this.computeVertexNormals();
@@ -87,9 +178,6 @@ class CybertruckGeometry extends THREE.Geometry {
         this.vertices.push(new THREE.Vector3(-6.43, 4, -3.71)); //37
         this.vertices.push(new THREE.Vector3(4.92, 5, -3.6)); //38
         this.vertices.push(new THREE.Vector3(4.92, 4, -3.92)); //39
-
-
-
     }
 
     createFaces() {
@@ -112,18 +200,18 @@ class CybertruckGeometry extends THREE.Geometry {
         }
 
         //farois
-        for(var i = 0;i < 2;i++){
+        /*for(var i = 0;i < 2;i++){
             this.faces.push(new THREE.Face3(20+i, 22+4*i, 23+4*i));
             
             this.faces.push(new THREE.Face3(22+4*i, 23+4*i, 24+4*i));
             this.faces.push(new THREE.Face3(22+4*i, 24+4*i, 25+4*i));
         }
-        
+        this.faces.push(new THREE.Face3(23, 24, 27));
+        this.faces.push(new THREE.Face3(27, 28, 24));*/
 
         this.faces.push(new THREE.Face3(20, 23, 27));
         this.faces.push(new THREE.Face3(21, 27, 20));
-        this.faces.push(new THREE.Face3(23, 24, 27));
-        this.faces.push(new THREE.Face3(27, 28, 24));
+       
 
         //tejadilho
         this.faces.push(new THREE.Face3(24, 25, 30));
@@ -133,8 +221,8 @@ class CybertruckGeometry extends THREE.Geometry {
         this.faces.push(new THREE.Face3(24, 25, 30));
 
             //vidro
-            this.faces.push(new THREE.Face3(31, 32, 33));
-            this.faces.push(new THREE.Face3(30, 31, 32));
+            /*this.faces.push(new THREE.Face3(31, 32, 33));
+            this.faces.push(new THREE.Face3(30, 31, 32));*/
         
         this.faces.push(new THREE.Face3(25, 30, 32));
         this.faces.push(new THREE.Face3(29, 31, 33));
@@ -153,8 +241,8 @@ class CybertruckGeometry extends THREE.Geometry {
             this.faces.push(new THREE.Face3(16+i, 22+4*i, 25+4*i));
 
                 //vidro
-                this.faces.push(new THREE.Face3(32+i, 34+3*i, 35+3*i));
-                this.faces.push(new THREE.Face3(34+3*i, 35+3*i, 36+3*i));
+                /*this.faces.push(new THREE.Face3(32+i, 34+3*i, 35+3*i));
+                this.faces.push(new THREE.Face3(34+3*i, 35+3*i, 36+3*i));*/
             
             this.faces.push(new THREE.Face3(0+i, 35+3*i, 36+3*i));
             this.faces.push(new THREE.Face3(0+i, 6+i, 36+3*i));
@@ -164,21 +252,6 @@ class CybertruckGeometry extends THREE.Geometry {
             this.faces.push(new THREE.Face3(14+i, 16+i, 34+3*i));
             this.faces.push(new THREE.Face3(16+i, 25+4*i, 34+3*i));
         }
-
-
-
-
-
-
-
-        
-
-
-        
-
-
-
-
     }
 }
 
@@ -225,3 +298,6 @@ class Wheel extends THREE.Object3D {
         scene.add(this);
     }
 }
+
+
+

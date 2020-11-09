@@ -3,12 +3,17 @@ class Lamp extends THREE.Group {
         'use strict'
         super();
 
-        this.material = new THREE.MeshLambertMaterial({color: 0xffffff, wireframe: false});
         this.cone = new THREE.ConeGeometry(radius, height);
-        this.sphere = new THREE.SphereGeometry(radius/2, 10, 10);
-        this.coneMesh = new THREE.Mesh(this.cone, this.material);
-        this.sphereMesh = new THREE.Mesh(this.sphere, this.material);
+        this.coneMaterial = new THREE.MeshBasicMaterial({color: 0xD3D3D3, wireframe: false});
+        this.coneMesh = new THREE.Mesh(this.cone, this.coneMaterial);
         this.coneMesh.position.set(0,0,0);
+        
+        this.sphere = new THREE.SphereGeometry(radius/2, 10, 10);
+        this.sphereLambertMaterial = new THREE.MeshLambertMaterial( {color: 0xffffff, emissive: 0xffffff});
+        this.spherePhongMaterial = new THREE.MeshPhongMaterial({ color: 0x193D66, specular: 0x111111, shininess: 30, emissive: 0xffffff});
+        this.sphereBasicMaterial = new THREE.MeshBasicMaterial(0xffffff);
+        this.sphereMesh = new THREE.Mesh(this.sphere, this.sphereLambertMaterial);
+        
         this.coneMesh.add(this.sphereMesh);
         this.add(this.coneMesh);
         this.sphereMesh.position.y -= height/2;
@@ -19,7 +24,7 @@ class Lamp extends THREE.Group {
 class Spotlight extends THREE.SpotLight {
     constructor(x,y,z, solid, angleX, angleZ, targetX, targetY, targetZ, color) {
         'use strict'
-        super(color, 0.5, 0, Math.PI/8, 0);
+        super(color, 1, 60, Math.PI/8, 0);
         this.position.set(x,y,z);
         this.add(solid);
         this.target = new THREE.Object3D();

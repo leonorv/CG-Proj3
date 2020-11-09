@@ -84,8 +84,8 @@ function createCamera() {
     cameraOrtho = new THREE.OrthographicCamera( 0.5 * frustumSize * aspect / - 2, 0.5 * frustumSize * aspect / 2, 0.5 * frustumSize / 2, 0.5 * frustumSize / - 2, 2, 2000);
     cameraPerspective = new THREE.PerspectiveCamera(fov, aspect, near, far);
     /*ORTHO POSITION*/
-    cameraOrtho.position.set(0,frustumSize,0);
-    cameraOrtho.lookAt(scene.position);
+    cameraOrtho.position.set(0, platform.podium.height, platform.podium.radius);
+    cameraOrtho.lookAt(platform.podium.position);
     scene.add(cameraOrtho);
     /*PERSPECTIVE POSITION*/
     cameraPerspective.position.set(35, 35, 35);
@@ -126,11 +126,11 @@ function onKeyDown(e) {
             onResize();
             break;
         case 87:
-            changeCalculationsStatus();
+            cybertruck.changeShadingType();
             onResize();
             break;
         case 69:
-            changeShadingType();
+            cybertruck.changeLightingCalculations();
             onResize();
             break;
         case 49: 
