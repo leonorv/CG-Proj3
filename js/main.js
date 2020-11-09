@@ -126,11 +126,12 @@ function onKeyDown(e) {
             onResize();
             break;
         case 87:
-            changeCalculationsStatus();
+            cybertruck.changeShadingType();
+            //changeCalculationsStatus();
             onResize();
             break;
         case 69:
-            changeShadingType();
+            cybertruck.changeLightingCalculations();
             onResize();
             break;
         case 49: 
