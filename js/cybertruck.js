@@ -3,14 +3,22 @@ class Cybertruck extends THREE.Object3D {
         'use strict'
         super();
         this.geometry = new CybertruckGeometry();
-        this.mainMaterialPhong = new THREE.MeshPhongMaterial({color: 0xB9C1C7, side: THREE.DoubleSide});
-        this.mainMaterialLambert = new THREE.MeshLambertMaterial({color: 0xdadaff, side: THREE.DoubleSide});
-        this.mainMaterialBasic = new THREE.MeshBasicMaterial({color: 0xdadaff, side: THREE.DoubleSide});
+
+        this.mainMaterialPhong = new THREE.MeshPhongMaterial({color: 0x6B6B6B, side: THREE.DoubleSide, specular: 0x474747, shininess: 20});
+        this.mainMaterialLambert = new THREE.MeshLambertMaterial({color: 0x6B6B6B, side: THREE.DoubleSide});
+        this.mainMaterialBasic = new THREE.MeshBasicMaterial({color: 0x6B6B6B, side: THREE.DoubleSide});
         this.mainMaterial = this.mainMaterialLambert;
+
+        this.glassMaterialPhong = new THREE.MeshPhongMaterial({color: 0x47494F, side: THREE.DoubleSide, transparent: true, opacity: 0.8, specular: 0xF0F0F0, shininess: 50});
+        this.glassMaterialLambert = new THREE.MeshLambertMaterial({color: 0x47494F, side: THREE.DoubleSide, transparent: true, opacity: 0.8});
+        this.glassMaterialBasic = new THREE.MeshBasicMaterial({color: 0x47494F, side: THREE.DoubleSide});
+        this.glassMaterial = this.glassMaterialLambert;
+
         this.mainMesh = new THREE.Mesh(this.geometry, this.mainMaterial);
         this.headlightsMesh = new THREE.Mesh(this.geometry.headlights, this.mainMaterial);
-        this.frontGlassMesh = new THREE.Mesh(this.geometry.frontGlass, this.mainMaterial);
-        this.sideGlassMesh = new THREE.Mesh(this.geometry.sideGlass, this.mainMaterial);
+        this.frontGlassMesh = new THREE.Mesh(this.geometry.frontGlass, this.glassMaterial);
+        this.sideGlassMesh = new THREE.Mesh(this.geometry.sideGlass, this.glassMaterial);
+
         this.add(this.mainMesh);
         this.add(this.headlightsMesh);
         this.add(this.frontGlassMesh);
@@ -32,20 +40,32 @@ class Cybertruck extends THREE.Object3D {
     }
 
     changeShadingType() {
-        if (this.mainMesh.material == this.mainMeshMaterialLambert) {
+        if (this.mainMesh.material == this.mainMaterialLambert) {
             this.mainMesh.material = this.mainMaterialPhong;
+            this.headlightsMesh.material = this.mainMaterialPhong;
+            this.frontGlassMesh.material = this.glassMaterialPhong;
+            this.sideGlassMesh.material = this.glassMaterialPhong;
         }
         else {
             this.mainMesh.material = this.mainMaterialLambert;
+            this.headlightsMesh.material = this.mainMaterialLambert;
+            this.frontGlassMesh.material = this.glassMaterialLambert;
+            this.sideGlassMesh.material = this.glassMaterialLambert;
         }
     }
 
     changeLightingCalculations() {
         if (this.mainMesh.material == this.mainMaterialLambert || this.mainMesh.material == this.mainMaterialPhong) {
             this.mainMesh.material = this.mainMaterialBasic;
+            this.headlightsMesh.material = this.mainMaterialBasic;
+            this.frontGlassMesh.material = this.glassMaterialBasic;
+            this.sideGlassMesh.material = this.glassMaterialBasic;
         }
         else {
             this.mainMesh.material = this.mainMaterialLambert;
+            this.headlightsMesh.material = this.mainMaterialLambert;
+            this.frontGlassMesh.material = this.glassMaterialLambert;
+            this.sideGlassMesh.material = this.glassMaterialLambert;
         }
     }
 }
@@ -113,9 +133,6 @@ class sideGlassGeometry extends THREE.Geometry {
 class CybertruckGeometry extends THREE.Geometry {
     constructor() {
         super();
-        //this.n_vertices = 30;
-        //this.n_faces = 40; //idk
-        //this.createFaces();
         this.createVertices();
         this.headlights = new headlightsGeometry(this.vertices);
         this.frontGlass = new frontGlassGeometry(this.vertices);
@@ -154,13 +171,13 @@ class CybertruckGeometry extends THREE.Geometry {
 
         //farol direito
         this.vertices.push(new THREE.Vector3(-8.2, 1.5, 4)); //22
-        this.vertices.push(new THREE.Vector3(-9, 1.5, 2)); //23
-        this.vertices.push(new THREE.Vector3(-9, 3, 2)); //24
+        this.vertices.push(new THREE.Vector3(-9.8, 1.5, 2)); //23
+        this.vertices.push(new THREE.Vector3(-9.8, 3, 2)); //24
         this.vertices.push(new THREE.Vector3(-8.2, 3, 4)); //25
         //farol esquerdo
         this.vertices.push(new THREE.Vector3(-8.2, 1.5, -4)); //26
-        this.vertices.push(new THREE.Vector3(-9, 1.5, -2)); //27
-        this.vertices.push(new THREE.Vector3(-9, 3, -2)); //28
+        this.vertices.push(new THREE.Vector3(-9.8, 1.5, -2)); //27
+        this.vertices.push(new THREE.Vector3(-9.8, 3, -2)); //28
         this.vertices.push(new THREE.Vector3(-8.2, 3, -4)); //29
 
         //vidro da frente

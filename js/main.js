@@ -51,9 +51,9 @@ function createCybertruck() {
 }
 
 function createSpotlights() {
-    var spotlight1 = new Spotlight(-10, 20, -10, new Lamp(1.5, 3), Math.PI/6, -Math.PI/6, 10, 0, 0, primary_colors[0]);
-    var spotlight2 = new Spotlight(10, 20, -10, new Lamp(1.5, 3), -Math.PI/6, -Math.PI/6, 0, 0, 0, primary_colors[1]);
-    var spotlight3 = new Spotlight(0, 20, 10, new Lamp(1.5, 3), 0, Math.PI/6, 0, 0, 10, primary_colors[2]);
+    var spotlight1 = new Spotlight(-10, 20, -10, new Lamp(1.5, 3, primary_colors[0]), Math.PI/6, -Math.PI/6, 10, 0, 0, primary_colors[0]);
+    var spotlight2 = new Spotlight(10, 20, -10, new Lamp(1.5, 3, primary_colors[1]), -Math.PI/6, -Math.PI/6, 0, 0, 0, primary_colors[1]);
+    var spotlight3 = new Spotlight(0, 20, 10, new Lamp(1.5, 3, primary_colors[2]), 0, Math.PI/6, 0, 0, 10, primary_colors[2]);
 
     spotlights.push(spotlight1);
     spotlights.push(spotlight2);
@@ -113,6 +113,16 @@ function onResize() {
     camera.updateProjectionMatrix();
 }
 
+function changeShadingType() {
+    cybertruck.changeShadingType();
+    spotlights.forEach(light => light.changeShadingType());      
+}
+
+function changeLightingCalculations() {
+    cybertruck.changeLightingCalculations();
+    spotlights.forEach(light => light.changeLightingCalculations());      
+}
+
 function onKeyDown(e) {
     'use strict';
     keys[e.keyCode] = true;
@@ -125,12 +135,12 @@ function onKeyDown(e) {
                 global_light.intensity = 0;
             onResize();
             break;
-        case 87:
-            cybertruck.changeShadingType();
+        case 69:
+            changeShadingType();
             onResize();
             break;
-        case 69:
-            cybertruck.changeLightingCalculations();
+        case 87:
+            changeLightingCalculations();
             onResize();
             break;
         case 49: 
