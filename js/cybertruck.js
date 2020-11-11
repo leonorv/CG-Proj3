@@ -15,7 +15,7 @@ class Cybertruck extends THREE.Object3D {
         this.glassMaterial = this.glassMaterialLambert;
 
         this.mainMesh = new THREE.Mesh(this.geometry, this.mainMaterial);
-        this.headlightsMesh = new THREE.Mesh(this.geometry.headlights, this.mainMaterial);
+        this.headlightsMesh = new THREE.Mesh(this.geometry.headlights, this.glassMaterial);
         this.frontGlassMesh = new THREE.Mesh(this.geometry.frontGlass, this.glassMaterial);
         this.sideGlassMesh = new THREE.Mesh(this.geometry.sideGlass, this.glassMaterial);
 
@@ -42,13 +42,13 @@ class Cybertruck extends THREE.Object3D {
     changeShadingType() {
         if (this.mainMesh.material == this.mainMaterialLambert) {
             this.mainMesh.material = this.mainMaterialPhong;
-            this.headlightsMesh.material = this.mainMaterialPhong;
+            this.headlightsMesh.material = this.glassMaterialPhong;
             this.frontGlassMesh.material = this.glassMaterialPhong;
             this.sideGlassMesh.material = this.glassMaterialPhong;
         }
         else {
             this.mainMesh.material = this.mainMaterialLambert;
-            this.headlightsMesh.material = this.mainMaterialLambert;
+            this.headlightsMesh.material = this.glassMaterialLambert;
             this.frontGlassMesh.material = this.glassMaterialLambert;
             this.sideGlassMesh.material = this.glassMaterialLambert;
         }
@@ -57,13 +57,13 @@ class Cybertruck extends THREE.Object3D {
     changeLightingCalculations() {
         if (this.mainMesh.material == this.mainMaterialLambert || this.mainMesh.material == this.mainMaterialPhong) {
             this.mainMesh.material = this.mainMaterialBasic;
-            this.headlightsMesh.material = this.mainMaterialBasic;
+            this.headlightsMesh.material = this.glassMaterialBasic;
             this.frontGlassMesh.material = this.glassMaterialBasic;
             this.sideGlassMesh.material = this.glassMaterialBasic;
         }
         else {
             this.mainMesh.material = this.mainMaterialLambert;
-            this.headlightsMesh.material = this.mainMaterialLambert;
+            this.headlightsMesh.material = this.glassMaterialLambert;
             this.frontGlassMesh.material = this.glassMaterialLambert;
             this.sideGlassMesh.material = this.glassMaterialLambert;
         }
@@ -81,15 +81,15 @@ class headlightsGeometry extends THREE.Geometry {
     }
 
     createFaces() {
-       //farois
-       for(var i = 0;i < 2;i++){
-        this.faces.push(new THREE.Face3(20+i, 22+4*i, 23+4*i));
-        
-        this.faces.push(new THREE.Face3(22+4*i, 23+4*i, 24+4*i));
-        this.faces.push(new THREE.Face3(22+4*i, 24+4*i, 25+4*i));
-        }
-        this.faces.push(new THREE.Face3(23, 24, 27));
-        this.faces.push(new THREE.Face3(27, 28, 24));
+        this.faces.push(new THREE.Face3(40, 41, 25));
+        this.faces.push(new THREE.Face3(40, 24, 25));
+        this.faces.push(new THREE.Face3(40, 42, 24));
+        this.faces.push(new THREE.Face3(24, 28, 42));
+        this.faces.push(new THREE.Face3(42, 43, 29));
+        this.faces.push(new THREE.Face3(42, 28, 29));
+
+        this.faces.push(new THREE.Face3(0, 1, 44));
+        this.faces.push(new THREE.Face3(44, 45, 1));
     }
     
 }
@@ -169,20 +169,20 @@ class CybertruckGeometry extends THREE.Geometry {
         this.vertices.push(new THREE.Vector3(-8, 0.5, 4)); //20
         this.vertices.push(new THREE.Vector3(-8, 0.5, -4)); //21
 
-        //farol direito
-        this.vertices.push(new THREE.Vector3(-8.2, 1.5, 4)); //22
-        this.vertices.push(new THREE.Vector3(-9.8, 1.5, 2)); //23
-        this.vertices.push(new THREE.Vector3(-9.8, 3, 2)); //24
+        //"farol" direito
+        this.vertices.push(new THREE.Vector3(-8.2, 0.7, 4)); //22
+        this.vertices.push(new THREE.Vector3(-9.32, 0.7, 2.24)); //23
+        this.vertices.push(new THREE.Vector3(-9.32, 2.37, 2.24)); //24
         this.vertices.push(new THREE.Vector3(-8.2, 3, 4)); //25
-        //farol esquerdo
-        this.vertices.push(new THREE.Vector3(-8.2, 1.5, -4)); //26
-        this.vertices.push(new THREE.Vector3(-9.8, 1.5, -2)); //27
-        this.vertices.push(new THREE.Vector3(-9.8, 3, -2)); //28
+        //"farol" esquerdo
+        this.vertices.push(new THREE.Vector3(-8.2, 0.7, -4)); //26
+        this.vertices.push(new THREE.Vector3(-9.32, 0.7, -2.24)); //27
+        this.vertices.push(new THREE.Vector3(-9.32, 2.37, -2.24)); //28
         this.vertices.push(new THREE.Vector3(-8.2, 3, -4)); //29
 
         //vidro da frente
-        this.vertices.push(new THREE.Vector3(-7, 4.3, 2.8)); //30
-        this.vertices.push(new THREE.Vector3(-7, 4.3, -2.8)); //31
+        this.vertices.push(new THREE.Vector3(-6.95, 3.71,3.14)); //30
+        this.vertices.push(new THREE.Vector3(-6.95, 3.71,-3.14)); //31
         this.vertices.push(new THREE.Vector3(-2, 6.5, 3)); //32
         this.vertices.push(new THREE.Vector3(-2, 6.5, -3)); //33
 
@@ -195,11 +195,21 @@ class CybertruckGeometry extends THREE.Geometry {
         this.vertices.push(new THREE.Vector3(-6.43, 4, -3.71)); //37
         this.vertices.push(new THREE.Vector3(4.92, 5, -3.6)); //38
         this.vertices.push(new THREE.Vector3(4.92, 4, -3.92)); //39
+
+        //luz da frente
+        this.vertices.push(new THREE.Vector3(-9.32,2.07, 2.24)); //40
+        this.vertices.push(new THREE.Vector3(-8.2, 2.3, 4)); //41
+        this.vertices.push(new THREE.Vector3(-9.32, 2.07, -2.24)); //42
+        this.vertices.push(new THREE.Vector3(-8.2, 2.3, -4)); //43
+
+        //luz de trás
+        this.vertices.push(new THREE.Vector3(9.38, 3.69, 4)); //44
+        this.vertices.push(new THREE.Vector3(9.38, 3.69, -4)); //45
     }
 
     createFaces() {
-        this.faces.push(new THREE.Face3(0, 1, 2));
-        this.faces.push(new THREE.Face3(1, 2, 3));
+        this.faces.push(new THREE.Face3(44, 45, 2));
+        this.faces.push(new THREE.Face3(45, 2, 3));
         this.faces.push(new THREE.Face3(2, 3, 4));
         this.faces.push(new THREE.Face3(3, 4, 5));
 
@@ -216,18 +226,19 @@ class CybertruckGeometry extends THREE.Geometry {
             this.faces.push(new THREE.Face3(13+8*i, 10+8*i, 11+8*i));
         }
 
-        //farois
-        /*for(var i = 0;i < 2;i++){
-            this.faces.push(new THREE.Face3(20+i, 22+4*i, 23+4*i));
-            
-            this.faces.push(new THREE.Face3(22+4*i, 23+4*i, 24+4*i));
-            this.faces.push(new THREE.Face3(22+4*i, 24+4*i, 25+4*i));
-        }
-        this.faces.push(new THREE.Face3(23, 24, 27));
-        this.faces.push(new THREE.Face3(27, 28, 24));*/
 
         this.faces.push(new THREE.Face3(20, 23, 27));
         this.faces.push(new THREE.Face3(21, 27, 20));
+
+        //"farois"
+        for(var i = 0;i < 2;i++){
+            this.faces.push(new THREE.Face3(20+i, 22+4*i, 23+4*i));
+            
+            this.faces.push(new THREE.Face3(22+4*i, 23+4*i, 40+2*i));
+            this.faces.push(new THREE.Face3(22+4*i, 40+2*i, 41+2*i));
+        }
+        this.faces.push(new THREE.Face3(23, 24, 27));
+        this.faces.push(new THREE.Face3(27, 28, 24));
        
 
         //tejadilho
@@ -236,10 +247,6 @@ class CybertruckGeometry extends THREE.Geometry {
         this.faces.push(new THREE.Face3(28, 31, 30));
         this.faces.push(new THREE.Face3(28, 29, 31));
         this.faces.push(new THREE.Face3(24, 25, 30));
-
-            //vidro
-            /*this.faces.push(new THREE.Face3(31, 32, 33));
-            this.faces.push(new THREE.Face3(30, 31, 32));*/
         
         this.faces.push(new THREE.Face3(25, 30, 32));
         this.faces.push(new THREE.Face3(29, 31, 33));
@@ -256,10 +263,6 @@ class CybertruckGeometry extends THREE.Geometry {
             this.faces.push(new THREE.Face3(16+i, 18+i, 20+i));
             this.faces.push(new THREE.Face3(16+i, 20+i, 22+4*i));
             this.faces.push(new THREE.Face3(16+i, 22+4*i, 25+4*i));
-
-                //vidro
-                /*this.faces.push(new THREE.Face3(32+i, 34+3*i, 35+3*i));
-                this.faces.push(new THREE.Face3(34+3*i, 35+3*i, 36+3*i));*/
             
             this.faces.push(new THREE.Face3(0+i, 35+3*i, 36+3*i));
             this.faces.push(new THREE.Face3(0+i, 6+i, 36+3*i));
