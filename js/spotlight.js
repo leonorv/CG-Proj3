@@ -67,7 +67,15 @@ class Spotlight extends THREE.SpotLight {
     }
 
     changeLightingCalculations() {
+        if (this.solid.coneMesh.material == this.solid.coneLambertMaterial || this.solid.coneMesh.material == this.solid.conePhongMaterial) {
+            this.solid.coneMesh.material = this.solid.coneBasicMaterial;
+            this.solid.sphereMesh.material = this.solid.sphereBasicMaterial;
 
+        }
+        else {
+            this.solid.coneMesh.material = this.solid.coneLambertMaterial;
+            this.solid.sphereMesh.material = this.solid.sphereLambertMaterial;
+        }
     }
 }
 

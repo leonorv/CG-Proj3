@@ -115,12 +115,14 @@ function onResize() {
 
 function changeShadingType() {
     cybertruck.changeShadingType();
-    spotlights.forEach(light => light.changeShadingType());      
+    spotlights.forEach(light => light.changeShadingType());  
+    platform.changeShadingType();    
 }
 
 function changeLightingCalculations() {
     cybertruck.changeLightingCalculations();
-    spotlights.forEach(light => light.changeLightingCalculations());      
+    spotlights.forEach(light => light.changeLightingCalculations());   
+    platform.changeLightingCalculations();   
 }
 
 function onKeyDown(e) {
