@@ -14,13 +14,25 @@ class Cybertruck extends THREE.Object3D {
         this.glassMaterialBasic = new THREE.MeshBasicMaterial({color: 0x47494F, side: THREE.DoubleSide});
         this.glassMaterial = this.glassMaterialLambert;
 
+        this.frontLightMaterialPhong = new THREE.MeshPhongMaterial({color: 0xffffff,side: THREE.DoubleSide, emissive: 0xffffff});
+        this.frontLightMaterialLambert = new THREE.MeshLambertMaterial({color: 0xffffff,side: THREE.DoubleSide, emissive: 0xffffff});
+        this.frontLightMaterialBasic = new THREE.MeshBasicMaterial({color: 0xffffff,side: THREE.DoubleSide, emissive: 0xffffff});
+        this.frontLightMaterial = this.frontLightMaterialLambert;
+
+        this.backLightMaterialPhong = new THREE.MeshPhongMaterial({color: 0xff0000,side: THREE.DoubleSide, emissive: 0xff0000});
+        this.backLightMaterialLambert = new THREE.MeshLambertMaterial({color: 0xff0000,side: THREE.DoubleSide, emissive: 0xff0000});
+        this.backLightMaterialBasic = new THREE.MeshBasicMaterial({color: 0xff0000,side: THREE.DoubleSide, emissive: 0xff0000});
+        this.backLightMaterial = this.backLightMaterialLambert;
+
         this.mainMesh = new THREE.Mesh(this.geometry, this.mainMaterial);
-        this.headlightsMesh = new THREE.Mesh(this.geometry.headlights, this.glassMaterial);
+        this.frontLightMesh = new THREE.Mesh(this.geometry.frontLight, this.frontLightMaterial);
+        this.backLightMesh = new THREE.Mesh(this.geometry.backLight, this.backLightMaterial);
         this.frontGlassMesh = new THREE.Mesh(this.geometry.frontGlass, this.glassMaterial);
         this.sideGlassMesh = new THREE.Mesh(this.geometry.sideGlass, this.glassMaterial);
 
         this.add(this.mainMesh);
-        this.add(this.headlightsMesh);
+        this.add(this.frontLightMesh);
+        this.add(this.backLightMesh);
         this.add(this.frontGlassMesh);
         this.add(this.sideGlassMesh);
         this.position.set(x, y, z);
@@ -42,13 +54,15 @@ class Cybertruck extends THREE.Object3D {
     changeShadingType() {
         if (this.mainMesh.material == this.mainMaterialLambert) {
             this.mainMesh.material = this.mainMaterialPhong;
-            this.headlightsMesh.material = this.glassMaterialPhong;
+            this.frontLightMesh.material = this.frontLightMaterialPhong;
+            this.backLightMesh.material = this.backLightMaterialPhong;
             this.frontGlassMesh.material = this.glassMaterialPhong;
             this.sideGlassMesh.material = this.glassMaterialPhong;
         }
         else {
             this.mainMesh.material = this.mainMaterialLambert;
-            this.headlightsMesh.material = this.glassMaterialLambert;
+            this.frontLightMesh.material = this.frontLightMaterialLambert;
+            this.backLightMesh.material = this.backLightMaterialLambert;
             this.frontGlassMesh.material = this.glassMaterialLambert;
             this.sideGlassMesh.material = this.glassMaterialLambert;
         }
@@ -57,20 +71,22 @@ class Cybertruck extends THREE.Object3D {
     changeLightingCalculations() {
         if (this.mainMesh.material == this.mainMaterialLambert || this.mainMesh.material == this.mainMaterialPhong) {
             this.mainMesh.material = this.mainMaterialBasic;
-            this.headlightsMesh.material = this.glassMaterialBasic;
+            this.frontLightMesh.material = this.frontLightMaterialBasic;
+            this.backLightMesh.material = this.backLightMaterialBasic;
             this.frontGlassMesh.material = this.glassMaterialBasic;
             this.sideGlassMesh.material = this.glassMaterialBasic;
         }
         else {
             this.mainMesh.material = this.mainMaterialLambert;
-            this.headlightsMesh.material = this.glassMaterialLambert;
+            this.frontLightMesh.material = this.frontLightMaterialLambert;
+            this.backLightMesh.material = this.backLightMaterialLambert;
             this.frontGlassMesh.material = this.glassMaterialLambert;
             this.sideGlassMesh.material = this.glassMaterialLambert;
         }
     }
 }
 
-class headlightsGeometry extends THREE.Geometry {
+class frontLightGeometry extends THREE.Geometry {
     constructor(vertices) {
         'use strict'
         super();
@@ -87,7 +103,21 @@ class headlightsGeometry extends THREE.Geometry {
         this.faces.push(new THREE.Face3(24, 28, 42));
         this.faces.push(new THREE.Face3(42, 43, 29));
         this.faces.push(new THREE.Face3(42, 28, 29));
+    }
+    
+}
 
+class backLightGeometry extends THREE.Geometry {
+    constructor(vertices) {
+        'use strict'
+        super();
+        this.vertices = vertices;
+        this.createFaces();
+        this.computeFaceNormals();
+        //this.computeVertexNormals();
+    }
+
+    createFaces() {
         this.faces.push(new THREE.Face3(0, 1, 44));
         this.faces.push(new THREE.Face3(44, 45, 1));
     }
@@ -134,7 +164,8 @@ class CybertruckGeometry extends THREE.Geometry {
     constructor() {
         super();
         this.createVertices();
-        this.headlights = new headlightsGeometry(this.vertices);
+        this.frontLight = new frontLightGeometry(this.vertices);
+        this.backLight = new backLightGeometry(this.vertices);
         this.frontGlass = new frontGlassGeometry(this.vertices);
         this.sideGlass = new sideGlassGeometry(this.vertices);
         this.createFaces();
@@ -197,10 +228,10 @@ class CybertruckGeometry extends THREE.Geometry {
         this.vertices.push(new THREE.Vector3(4.92, 4, -3.92)); //39
 
         //luz da frente
-        this.vertices.push(new THREE.Vector3(-9.32,2.07, 2.24)); //40
-        this.vertices.push(new THREE.Vector3(-8.2, 2.3, 4)); //41
-        this.vertices.push(new THREE.Vector3(-9.32, 2.07, -2.24)); //42
-        this.vertices.push(new THREE.Vector3(-8.2, 2.3, -4)); //43
+        this.vertices.push(new THREE.Vector3(-9.32,2.17, 2.24)); //40
+        this.vertices.push(new THREE.Vector3(-8.2, 2.4, 4)); //41
+        this.vertices.push(new THREE.Vector3(-9.32, 2.17, -2.24)); //42
+        this.vertices.push(new THREE.Vector3(-8.2, 2.4, -4)); //43
 
         //luz de trás
         this.vertices.push(new THREE.Vector3(9.38, 3.69, 4)); //44

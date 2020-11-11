@@ -69,7 +69,7 @@ function createScene() {
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000000);
-    scene.add(new THREE.AxisHelper(10));
+    //scene.add(new THREE.AxisHelper(10));
 
     global_light = new THREE.DirectionalLight(0xffffff, 0.5);
     scene.add(global_light);
